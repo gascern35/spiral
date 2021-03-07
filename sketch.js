@@ -1,5 +1,7 @@
-let val = [10, 100, 60, 0.08];
+let rand;
+let val = [10, 100, 60, 0.09];
 let colorB;
+
 let bigAngle;
 let midAngle;
 let smallAngle;
@@ -15,28 +17,30 @@ let smallSlider;
 function setup() {
   colorMode(HSB);
   createCanvas(800, 600);
-  background(45, 80, 90, 0.08);
+  background(45, 80, 90, 0.09);
   colorB = createButton('COLOR');
-  bigSlider = createSlider(-90, 90, 2);
-  midSlider = createSlider(-90, 90, 2);
-  smallSlider = createSlider(-90, 90, 2);
-  bigR = 250;
+  bigSlider = createSlider(-20, 20, 0);
+  midSlider = createSlider(-20, 20, 0);
+  smallSlider = createSlider(-20, 20, 0);
+  bigR = 200;
   bigAngle = PI / 2;
   smallR = bigR / 2;
   smallAngle = PI / 2;
   midR = smallR * 1.5;
-  midAngle = PI;
+  midAngle = PI / 2;
+  rand = random(0, 360);
   colorB.mousePressed(changeBG);
 }
 
 function changeBG() {
-val = [random(0, 360), random(90,100), 60, 0.08];
+  val = [random(0, 360), random(70, 100), random(30, 50), 0.09];
 }
+
 function draw() {
   background(val[0], val[1], val[2], val[3]);
   translate(width / 2, height / 2);
   strokeWeight(4);
-  stroke(40, 90, 90);
+  stroke(rand, 100, 100);
   let smallx = smallR * cos(smallAngle);
   let smally = smallR * sin(smallAngle);
   let midx = midR * cos(midAngle);
