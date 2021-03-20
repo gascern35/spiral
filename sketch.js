@@ -1,5 +1,5 @@
 let backgroundVal = [10, 100, 60, 0.09];
-let lineVal = [60, 100, 100]
+let lineVal = [60, 100, 100, 0.09];
 let colorB;
 
 let bigAngle;
@@ -10,19 +10,22 @@ let bigR;
 let midR;
 let smallR;
 
+let curveSlider;
 let bigSlider;
 let midSlider;
 let smallSlider;
 
 function setup() {
+  //noCursor();
   colorMode(HSB);
+  //blendMode(SOFT_LIGHI);
   createCanvas(800, 600);
-  curveTightness(-5);
+  curveSlider = createSlider(-5, 5, 1);
   colorB = createButton('COLOR');
   bigSlider = createSlider(-20, 20, 0);
   midSlider = createSlider(-20, 20, 0);
   smallSlider = createSlider(-20, 20, 0);
-  bigR = 200;
+  bigR = 275;
   bigAngle = PI / 2;
   smallR = bigR / 2;
   smallAngle = PI / 2;
@@ -32,13 +35,19 @@ function setup() {
 }
 
 function changeBG() {
-  backgroundVal = [random(0, 360), random(90, 100), random(30, 50), 0.09];
-  lineVal = [random(0, 360), 100, 100];
+  backgroundVal = [random(0, 360), random(90, 100), random(30, 50), 0.099];
+  lineVal = [random(0, 360), 100, 100, 0.09];
 }
 
 function draw() {
-  background(backgroundVal[0], backgroundVal[1], backgroundVal[2], backgroundVal[3]);
   translate(width / 2, height / 2);
+  curveTightness(curveSlider.value());
+  background(
+    backgroundVal[0],
+    backgroundVal[1],
+    backgroundVal[2],
+    backgroundVal[3]
+  );
   strokeWeight(2);
   stroke(lineVal[0], lineVal[1], lineVal[2]);
   let smallx = smallR * cos(smallAngle);
@@ -49,8 +58,8 @@ function draw() {
   let bigy = bigR * sin(bigAngle);
   noFill();
   beginShape();
-  curveVertex(mouseX-(width/2), mouseY-(height/2));
-  curveVertex(mouseX-(width/2), mouseY-(height/2));
+  curveVertex(0, 0);
+  curveVertex(0, 0);
   curveVertex(smallx, smally);
   curveVertex(midx, midy);
   curveVertex(bigx, bigy);
